@@ -13,7 +13,6 @@ import shop.mtcoding.loginexample.dto.LoginReqDto;
 import shop.mtcoding.loginexample.handler.ex.CustomException;
 import shop.mtcoding.loginexample.model.User;
 import shop.mtcoding.loginexample.service.UserService;
-import shop.mtcoding.loginexample.util.PasswordHash;
 
 @Controller
 public class UserController {

@@ -11,6 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new CustomInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/loginForm", "/login", "/joinForm", "/join");
+        System.out.println("인터셉터 완료");
     }
 
 }
