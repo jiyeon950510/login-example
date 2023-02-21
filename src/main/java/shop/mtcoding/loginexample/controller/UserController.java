@@ -1,5 +1,7 @@
 package shop.mtcoding.loginexample.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,12 +13,15 @@ import shop.mtcoding.loginexample.dto.LoginReqDto;
 import shop.mtcoding.loginexample.handler.ex.CustomException;
 import shop.mtcoding.loginexample.model.User;
 import shop.mtcoding.loginexample.service.UserService;
+import shop.mtcoding.loginexample.util.PasswordHash;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private HttpSession session;
 
     @PostMapping("/login")
     public String login(LoginReqDto loginReqDto) {
@@ -27,6 +32,8 @@ public class UserController {
         if (loginReqDto.getPassword() == null || loginReqDto.getPassword().isEmpty()) {
             throw new CustomException("password을 작성해주세요");
         }
+        User principal = userService.로그인(loginReqDto);
+        session.setAttribute("principal", principal);
 
         return "redirect:/";
     }
@@ -43,13 +50,14 @@ public class UserController {
         if (joinReqDto.getEmail() == null || joinReqDto.getEmail().isEmpty()) {
             throw new CustomException("Fullname 입력해주세요", HttpStatus.BAD_REQUEST);
         }
+
         userService.회원가입(joinReqDto);
         return "redirect:/loginForm";
     }
 
     @GetMapping("/logout")
     public String logout() {
-        // session.invalidate();
+        session.invalidate();
         return "redirect:/";
     }
 

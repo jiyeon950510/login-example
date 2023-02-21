@@ -20,6 +20,19 @@ public class UserControllerTest {
     private MockMvc mvc;
 
     @Test
+    public void login_test() throws Exception {
+        // given
+        String requestBody = "username=ssar&password=1234";
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/login").content(requestBody)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+
+        // then
+        resultActions.andExpect(status().is3xxRedirection());
+    }
+
+    @Test
     public void join_test() throws Exception {
         // given
         String requestBody = "username=dfdf&password=1234&email=dfdf@nate.com";

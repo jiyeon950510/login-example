@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import shop.mtcoding.loginexample.dto.JoinReqDto;
+import shop.mtcoding.loginexample.dto.LoginReqDto;
 
 @Mapper
 public interface UserRepository { // CRUD
@@ -21,5 +22,5 @@ public interface UserRepository { // CRUD
 
     public int deleteById(int id);
 
-    public User findByUsernameAndPassword();
+    public User findByUsernameAndPassword(LoginReqDto loginReqDto);
 }
