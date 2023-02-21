@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import shop.mtcoding.loginexample.dto.JoinReqDto;
+import shop.mtcoding.loginexample.dto.LoginReqDto;
 import shop.mtcoding.loginexample.handler.ex.CustomException;
 import shop.mtcoding.loginexample.model.User;
 import shop.mtcoding.loginexample.model.UserRepository;
@@ -23,5 +24,9 @@ public class UserService {
         }
 
         int result = userRepository.insert(joinReqDto);
+    }
+
+    public User 로그인(LoginReqDto loginReqDto) {
+        return null;
     }
 }
