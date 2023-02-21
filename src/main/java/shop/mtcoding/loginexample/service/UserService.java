@@ -1,5 +1,7 @@
 package shop.mtcoding.loginexample.service;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +35,21 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User 로그인(LoginReqDto loginReqDto) {
-        User principal = userRepository.findByUsernameAndPassword(loginReqDto);
+
+        String password = PasswordHash.getPasswordHash(loginReqDto.getPassword());
+        // System.out.println("비밀번호 : " + password);
+
+        User principal = userRepository.findByUsernameAndPassword(loginReqDto.getUsername(), password);
+
         if (principal == null) {
             throw new CustomException("유저네임 혹은 패스워드가 잘못 입력되었습니다.");
         }
-        String passwordHash = PasswordHash.getPasswordHash(loginReqDto.getPassword());
-        principal.setPassword(passwordHash);
-        // System.out.println("패스워드:" + principal.getPassword());
+
+        // String passwordPR = PasswordHash.getPasswordHash(principal.getPassword());
+
+        // if (passwordHash != principal.getPassword()) {
+        // throw new CustomException("유저네임 혹은 패스워드가 잘못 입력되었습니다.");
+        // }
         return principal;
     }
 }

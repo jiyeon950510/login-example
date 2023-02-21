@@ -22,5 +22,5 @@ public interface UserRepository { // CRUD
 
     public int deleteById(int id);
 
-    public User findByUsernameAndPassword(LoginReqDto loginReqDto);
+    public User findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }
